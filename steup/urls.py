@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from financas.views import ReceitasViewSet
+from financas.views import ReceitasViewSet, DespesasViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register('receitas', ReceitasViewSet, basename='Receitas')
+router.register('despesas', DespesasViewSet, basename='Despesas')
 
 
 urlpatterns = [
