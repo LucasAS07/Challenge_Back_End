@@ -12,3 +12,4 @@ class DespesaSerialaizer(serializers.ModelSerializer):
     class Meta:
         model = Despesa
         fields = ['id', 'descricao_despesa', 'valor_despesa', 'data_despesa']
+
