@@ -32,7 +32,7 @@ class DespesasTestCase(APITestCase):
 
     def test_delete_despesa(self):
         """Teste para verificar a requisição DELETE em uma despesa"""
-        response = self.client.delete('/despesas/1/')
+        response = self.client.delete(f'/despesas/{self.despesa.id}/')
         self.assertEquals(response.status_code,
                           status.HTTP_204_NO_CONTENT)
 
@@ -44,5 +44,25 @@ class DespesasTestCase(APITestCase):
             'data_despesa': '2022-08-18',
             'categoria': 'A',
         }
-        response = self.client.put('/despesas/1/', data=data)
+        response = self.client.put(f'/despesas/{self.despesa.id}/', data=data)
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_post_campos_incompletos(self):
+        """Teste requisição POST passando campos incompletos"""
+        data = {
+            'descricao_despesa': 'Teste',
+            'categoria': 'S',
+        }
+
+        response = self.client.post(self.list_url, data=data)
+        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_get_busca_por_descricao(self):
+        """Teste requisição GET para fazer uma busca por descricao"""
+        response = self.client.get('/despesas/?descricao_despesa=teste/')
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_get_filtro_mensal(self):
+        """Teste requisição GET para filtrar despesas por mês"""
+        response = self.client.get('/despesas/2022/08/')
         self.assertEquals(response.status_code, status.HTTP_200_OK)

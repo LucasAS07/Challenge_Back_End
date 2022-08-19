@@ -55,7 +55,7 @@ class ResumoDoMes(APIView, serializers.ModelSerializer):
             Sum('valor_despesa'))['valor_despesa__sum'] or 0
         saldo = receita_do_mes - despesa_do_mes
         gasto_por_categoria = Despesa.objects.filter(
-            data_despesa__month=mes, data_despesa__year=ano).annotate(valor_total=Sum('valor_despesa'))
+            data_despesa__month=mes, data_despesa__year=ano).values('categoria').annotate(valor_total=Sum('valor_despesa'))
 
         return Response({
             "Receita do Mês": f"R${receita_do_mes}",
