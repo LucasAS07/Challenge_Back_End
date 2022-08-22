@@ -5,6 +5,8 @@ from django.db.models import Sum
 from rest_framework.response import Response
 from financas.models import Receita, Despesa
 from financas.serialaizer import ReceitaSerialaizer, DespesaSerialaizer, ListagemDespesas, ListagemReceitas
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 class ReceitasViewSet(viewsets.ModelViewSet):
@@ -13,6 +15,8 @@ class ReceitasViewSet(viewsets.ModelViewSet):
     serializer_class = ReceitaSerialaizer
     filter_backends = [filters.SearchFilter]
     search_fields = ['descricao_receita']
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class DespesasViewSet(viewsets.ModelViewSet):
@@ -21,6 +25,8 @@ class DespesasViewSet(viewsets.ModelViewSet):
     serializer_class = DespesaSerialaizer
     filter_backends = [filters.SearchFilter]
     search_fields = ['descricao_despesa']
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class ListaDespesas(generics.ListAPIView):
@@ -32,6 +38,8 @@ class ListaDespesas(generics.ListAPIView):
         return queryset
 
     serializer_class = ListagemDespesas
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class ListaReceitas(generics.ListAPIView):
@@ -43,6 +51,8 @@ class ListaReceitas(generics.ListAPIView):
         return queryset
 
     serializer_class = ListagemReceitas
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class ResumoDoMes(APIView, serializers.ModelSerializer):
@@ -63,3 +73,6 @@ class ResumoDoMes(APIView, serializers.ModelSerializer):
             "Saldo Finasl do Mês": f"R${saldo}",
             "Gasto por Categoria": gasto_por_categoria
         })
+
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
