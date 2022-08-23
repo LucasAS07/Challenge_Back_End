@@ -4,5 +4,6 @@
 ### A escolha da tecnologia a ser usada no desenvolvimento era livre e obtei por usar Python e Django usando Postgres para banco de dados.
 
 ## Para Testes
-## user: usuario
+## user: beta
 ## password: teste1234
+## link : https://drf-carteira-digital.herokuapp.com/
